@@ -25,14 +25,14 @@ const Index = () => {
     return (
       <div className="min-h-screen">
         <WelcomeHero />
-        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50">
+        {/* <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50">
           <button
             onClick={handleGetStarted}
             className="px-8 py-3 bg-primary/20 backdrop-blur-sm border border-primary/30 rounded-full text-primary hover:bg-primary/30 transition-all"
           >
             Get Started →
           </button>
-        </div>
+        </div> */}
       </div>
     )
   }

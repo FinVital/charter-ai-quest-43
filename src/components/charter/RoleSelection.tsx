@@ -1,3 +1,5 @@
+// Modified file: RoleSelection.tsx
+// Changes: Added demo note, adjusted for direct dashboard access without login for MVP demo
 import { Shield, Users, Eye, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/charter-button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"

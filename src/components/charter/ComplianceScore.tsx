@@ -11,27 +11,27 @@ export function ComplianceScore() {
   const getStatusColor = () => {
     switch (status) {
       case "excellent":
-        return "text-success"
+        return "text-green-500" // CHANGE: Matched to spec green (#28A745)
       case "good":
-        return "text-warning"
+        return "text-yellow-500" // CHANGE: Matched to spec yellow (#FFC107)
       default:
-        return "text-destructive"
+        return "text-red-500" // CHANGE: Matched to spec red (#DC3545)
     }
   }
 
   const getStatusBadge = () => {
     switch (status) {
       case "excellent":
-        return <Badge className="bg-success/20 text-success border-success/30">Excellent</Badge>
+        return <Badge className="bg-green-500/20 text-green-500 border-green-500/30">Excellent</Badge> // CHANGE: Specific colors
       case "good":
-        return <Badge className="bg-warning/20 text-warning border-warning/30">Good</Badge>
+        return <Badge className="bg-yellow-500/20 text-yellow-500 border-yellow-500/30">Good</Badge>
       default:
-        return <Badge className="bg-destructive/20 text-destructive border-destructive/30">Needs Attention</Badge>
+        return <Badge className="bg-red-500/20 text-red-500 border-red-500/30">Needs Attention</Badge>
     }
   }
 
   return (
-    <Card className="glass-card">
+    <Card className="glass-card ai-glow rounded-xl"> // CHANGE: Added AI glow and rounded edges (12px)
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-lg font-semibold flex items-center gap-2">
           <Shield className="h-5 w-5 text-primary" />
@@ -50,7 +50,7 @@ export function ComplianceScore() {
                 </span>
                 <span className="text-xl text-muted-foreground">/100</span>
               </div>
-              <div className="flex items-center gap-1 text-sm text-success">
+              <div className="flex items-center gap-1 text-sm text-green-500"> // CHANGE: Matched success color
                 <TrendingUp className="h-4 w-4" />
                 <span>{trend} this month</span>
               </div>
@@ -59,7 +59,7 @@ export function ComplianceScore() {
 
           {/* Progress Bar */}
           <div className="space-y-2">
-            <Progress value={score} className="h-3" />
+            <Progress value={score} className="h-3 bg-gradient-to-r from-blue-500 to-purple-500" /> // CHANGE: Added gradient blue-purple
             <p className="text-sm text-muted-foreground">
               Based on policies, evidence coverage, and AI risk assessment
             </p>
@@ -72,23 +72,23 @@ export function ComplianceScore() {
               <div className="text-xs text-muted-foreground">Policies</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-success">84%</div>
+              <div className="text-2xl font-bold text-green-500">84%</div> // CHANGE: Success color
               <div className="text-xs text-muted-foreground">Evidence</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-warning">3</div>
+              <div className="text-2xl font-bold text-yellow-500">3</div> // CHANGE: Warning color
               <div className="text-xs text-muted-foreground">Risks</div>
             </div>
           </div>
 
           {/* AI Prediction */}
-          <div className="mt-4 p-3 rounded-lg bg-primary/10 border border-primary/20">
+          <div className="mt-4 p-3 rounded-lg bg-primary/10 border border-primary/20 ai-glow"> // CHANGE: Added glow
             <div className="flex items-start gap-2">
               <AlertTriangle className="h-4 w-4 text-primary mt-0.5" />
               <div className="text-sm">
                 <span className="font-medium text-primary">AI Prediction:</span>
                 <span className="text-muted-foreground ml-1">
-                  Estimated audit readiness in 3 weeks with current progress
+                  80% ready → Estimated audit pass in 3 weeks. // CHANGE: Matched exact design text
                 </span>
               </div>
             </div>

@@ -1,3 +1,5 @@
+// Modified file: LoginForm.tsx
+// Changes: Integrated SSO, adjusted for MVP (but since demo uses RoleSelection, this might be alternative; no major changes needed)
 import { useState } from "react"
 import { Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/charter-button"

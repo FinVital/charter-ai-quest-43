@@ -130,11 +130,6 @@ export function RegistrationPage() {
           </Button>
         </form>
 
-        <div className="text-center text-gray-400 text-sm">
-          Already have an account?{" "}
-          <a href="/login" className="text-primary hover:underline">Log in</a>
-        </div>
-
         <div className="text-center text-gray-500 text-xs">
           By signing up, you agree to our{" "}
           <a href="/terms" className="underline">Terms of Service</a> and{" "}

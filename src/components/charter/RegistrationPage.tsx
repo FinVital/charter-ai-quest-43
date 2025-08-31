@@ -6,11 +6,10 @@ import { Label } from "@/components/ui/label"
 import { createClient } from "@supabase/supabase-js"
 import { useNavigate } from "react-router-dom"
 
-// Initialize Supabase client
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL || "https://sebysquockpuawwiyrgw.supabase.co",
-  import.meta.env.VITE_SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlYnlzcXVvY2twdWF3d2l5cmd3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1OTI3NzQsImV4cCI6MjA3MjE2ODc3NH0.tAnpgLegyl0gCy12osQBtQ9jYNtVLpLFeitzF2Uj2s8"
-)
+// Initialize Supabase client with environment variables
+console.log("Supabase URL:", import.meta.env.VITE_SUPABASE_URL);
+console.log("Supabase Anon Key:", import.meta.env.VITE_SUPABASE_ANON_KEY);
+const supabase = createClient("https://sebysquockpuawwiyrgw.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlYnlzcXVvY2twdWF3d2l5cmd3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1OTI3NzQsImV4cCI6MjA3MjE2ODc3NH0.tAnpgLegyl0gCy12osQBtQ9jYNtVLpLFeitzF2Uj2s8");
 
 export function RegistrationPage() {
   const navigate = useNavigate()
@@ -34,18 +33,30 @@ export function RegistrationPage() {
             isEarlyAdopter,
             discountCode: isEarlyAdopter ? "EARLY15" : null,
           },
-          // Removed emailRedirectTo to handle navigation manually
         },
-      })
+      }, )
 
       if (signUpError) throw signUpError
 
       if (data.user) {
-        alert(`Success! Check your email to verify your account. ${isEarlyAdopter ? "You've received a 15% discount code: EARLY15!" : ""}`)
-        navigate("/") // Redirect to welcome page instead of /dashboard
+        // Insert record into early_adopters table
+        console.log("Inserting data:", { email: data.user.email, is_early_adopter: isEarlyAdopter, discount_code: isEarlyAdopter ? "EARLY15" : null });
+        const { error: insertError } = await supabase.from("early_adopters").insert({
+          email: data.user.email,
+          is_early_adopter: isEarlyAdopter,
+          discount_code: isEarlyAdopter ? "EARLY15" : null,
+        })
+
+        if (insertError) {
+          console.error("Insert error:", insertError.message);
+          throw new Error(`Failed to insert record: ${insertError.message}`);
+        }
+
+        alert(`Success! Check your email to verify your account. ${isEarlyAdopter ? "You've received a 15% discount code: EARLY15!" : ""}`);
+        navigate("/") // Redirect to welcome page
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An unexpected error occurred")
+      setError(err instanceof Error ? err.message : "An unexpected error occurred");
     } finally {
       setLoading(false)
     }
@@ -120,8 +131,8 @@ export function RegistrationPage() {
         </form>
 
         <div className="text-center text-gray-400 text-sm">
-          {/* Already have an account?{" "}
-          <a href="/login" className="text-primary hover:underline">Log in</a> */}
+          Already have an account?{" "}
+          <a href="/login" className="text-primary hover:underline">Log in</a>
         </div>
 
         <div className="text-center text-gray-500 text-xs">
